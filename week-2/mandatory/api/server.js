@@ -5,6 +5,7 @@ const { Pool } = require('pg');
 //queries
 
 const getAllCustomers = 'select * from customers c';
+const getAllSupliers = 'select * from suppliers s';
 
 const pool = new Pool ({
   user: 'migracode',
@@ -20,6 +21,15 @@ app.get('/customers', function (req, res) {
     res.json(result.rows)
   });
 });
+
+app.get('/supliers', function (req, res) {
+  pool.query(getAllSupliers, (err, result) => {
+    console.log(result)
+    res.json(result.rows)
+  });
+});
+
+
 
 
 app.listen(3000, function () {
