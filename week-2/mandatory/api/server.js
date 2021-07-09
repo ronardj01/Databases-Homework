@@ -1,20 +1,13 @@
 const express = require('express');
 const app = express();
-const { Pool } = require('pg');
 
 //queries
 const getAllCustomers = 'select * from customers c';
 const getAllSupliers = 'select * from suppliers s';
 const getAllProductsAndSupliers =  "select p.product_name, s.supplier_name from products p inner join suppliers s on p.supplier_id = s.id";
 
-//connection setting
-const pool = new Pool({
-  user: 'migracode',
-  host: 'localhost',
-  database: 'cyf_ecommerce',
-  password: '',
-  port: 5432
-});
+//Connecting to the Database
+const pool = require('../../../week-3/mandatory/api/utils/poolConect')
 
 //enpoints
 app.get('/customers', function (req, res) {
