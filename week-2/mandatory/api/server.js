@@ -4,6 +4,9 @@ const productsRouter = require('../../../week-3/mandatory/api/router/products');
 const customersRouter = require('../../../week-3/mandatory/api/router/customers');
 const supliersRouter = require('../../../week-3/mandatory/api/router/supliers');
 
+app.use(express.json());
+app.use(express.urlencoded());
+
 //queries
 //const getAllCustomers = 'select * from customers c';
 //const getAllSupliers = 'select * from suppliers s';
