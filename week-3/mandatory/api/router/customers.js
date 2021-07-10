@@ -16,34 +16,33 @@ const pool = require('../utils/poolConect');
 //Search customer by Id
 router.get('/:customerID', async function (req, res) {
   const customerID = req.params.customerID;
-  try{
+  try {
     const result = await pool.query(customerByID, [customerID]);
     res.json(result.rows);
-  }catch(error) {
+  } catch (error) {
     console.error(error.stack)
   }
 });
 
 //Search all customer
 router.get('/', function (req, res) {
-    pool.query(getAllCustomers, (err, result) => {
-      res.json(result.rows)
-    });
+  pool.query(getAllCustomers, (err, result) => {
+    res.json(result.rows)
   });
+});
 
-  //Endpoints (POST)
-  //Crete a new customer
-  router.post('/', async function (req, res) {
-    const {name, address, city, country} = req.body;
-    const values = [ name, address, city, country];
+//Endpoints (POST)
+//Crete a new customer
+router.post('/', async function (req, res) {
+  const { name, address, city, country } = req.body;
+  const values = [name, address, city, country];
 
-    try{
-      const result = await pool.query(newCustomer, values);
-      res.send('New Customer Created!!')
-    } catch(error) {
-      console.error(error.stack)
-    }
-  });
-
+  try {
+    const result = await pool.query(newCustomer, values);
+    res.send('New Customer Created!!')
+  } catch (error) {
+    console.error(error.stack)
+  }
+});
 
 module.exports = router;
