@@ -1,14 +1,18 @@
 const express = require('../../../../week-2/mandatory/api/node_modules/express');
 const router = express.Router();
 
-//Queries
+//Queries 
+//GET
 const getAllCustomers = 'select * from customers c';
 const customerByID = 'select * from customers c where id = $1';
+
+//POST
+const newCustomer = 'insert into customers (name, address, city, country) values ($1, $2, $3, $4)';
 
 //Connecting to the Database
 const pool = require('../utils/poolConect');
 
-//Endpoints
+//Endpoints (GET)
 //Search customer by Id
 router.get('/:customerID', async function (req, res) {
   const customerID = req.params.customerID;
@@ -27,6 +31,19 @@ router.get('/', function (req, res) {
     });
   });
 
+  //Endpoints (POST)
+  //Crete a new customer
+  router.post('/', async function (req, res) {
+    const {name, address, city, country} = req.body;
+    const values = [ name, address, city, country];
+
+    try{
+      const result = await pool.query(newCustomer, values);
+      res.send('New Customer Created!!')
+    } catch(error) {
+      console.error(error.stack)
+    }
+  });
 
 
 module.exports = router;
