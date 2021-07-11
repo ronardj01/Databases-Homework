@@ -2,14 +2,15 @@ const express = require('../../../../week-2/mandatory/api/node_modules/express')
 const router = express.Router();
 
 //Queries
+//POST
 const newOrder = 'insert into orders (order_date, order_reference, customer_id) values ($1, $2, $3)';
 const verifyCustomerID = 'select * from customers c where id = $1';
 
 //Connecting to the Database
 const pool = require('../utils/poolConect');
 
-//Endpoints
-//POST
+//Endpoints (POST)
+//Create a new order
 router.post('/customers/:customerId/orders', async function (req, res) {
   const customerId = parseInt(req.params.customerId);
   const { order_date, order_reference, customer_id } = req.body;

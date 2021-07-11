@@ -5,6 +5,7 @@ const router = express.Router();
 const getAllSupliers = 'select * from suppliers s';
 
 //Connecting to the Database
+//Search all supliers
 const pool = require('../utils/poolConect');
 
 router.get('/', function (req, res) {

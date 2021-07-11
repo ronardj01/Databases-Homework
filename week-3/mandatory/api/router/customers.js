@@ -9,6 +9,9 @@ const customerByID = 'select * from customers c where id = $1';
 //POST
 const newCustomer = 'insert into customers (name, address, city, country) values ($1, $2, $3, $4)';
 
+//PUT 
+const updateCustomer = 'update customers set name = $1, address = $2, city = $3, country = $4 where id = $5';
+
 //Connecting to the Database
 const pool = require('../utils/poolConect');
 
@@ -42,6 +45,21 @@ router.post('/', async function (req, res) {
     res.send('New Customer Created!!')
   } catch (error) {
     console.error(error.stack)
+  }
+});
+
+//Endpoints (PUT)
+//Update an existing custome
+router.put('/:customerID', async function (req, res) {
+  const customerID = req.params.customerID;
+  const { name, address, city, country } = req.body;
+  const values = [name, address, city, country, customerID];
+
+  try {
+    const result = await pool.query(updateCustomer, values);
+    res.send('Customer updated!!!')
+  }catch(error){
+    console.error(error.stack);
   }
 });
 
