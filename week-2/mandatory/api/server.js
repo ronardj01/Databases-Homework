@@ -3,6 +3,7 @@ const app = express();
 const productsRouter = require('../../../week-3/mandatory/api/router/products');
 const customersRouter = require('../../../week-3/mandatory/api/router/customers');
 const supliersRouter = require('../../../week-3/mandatory/api/router/supliers');
+const ordersRouter = require('../../../week-3/mandatory/api/router/orders');
 
 app.use(express.json());
 app.use(express.urlencoded());
@@ -34,6 +35,7 @@ app.use(express.urlencoded());
   });
 }); */
 
+app.use('/', ordersRouter);
 app.use('/customers', customersRouter);
 app.use('/products', productsRouter);
 app.use('/supliers', supliersRouter);
