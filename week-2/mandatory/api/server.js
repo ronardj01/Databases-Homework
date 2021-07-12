@@ -6,7 +6,6 @@ const supliersRouter = require('../../../week-3/mandatory/api/router/supliers');
 const ordersRouter = require('../../../week-3/mandatory/api/router/orders');
 
 app.use(express.json());
-app.use(express.urlencoded());
 
 //queries
 //const getAllCustomers = 'select * from customers c';

@@ -6,6 +6,10 @@ const router = express.Router();
 const newOrder = 'insert into orders (order_date, order_reference, customer_id) values ($1, $2, $3)';
 const verifyCustomerID = 'select * from customers c where id = $1';
 
+//DELETE
+const deleteORderItems = 'delete from order_items where order_id = $1';
+const deleteOrder = 'delete from orders where id = $1';
+
 //Connecting to the Database
 const pool = require('../utils/poolConect');
 
@@ -30,6 +34,22 @@ router.post('/customers/:customerId/orders', async function (req, res) {
 
   } catch (error) {
     console.error(error.stack);
+  }
+});
+
+//Endpoints (DELETE)
+//Delete an existing order along all the associated order items
+router.delete('/orders/:orderId', async function (req, res) {
+  const orderId = req.params.orderId;
+  
+  try{
+    const client = await pool.connect();
+    let result = await client.query(deleteORderItems, [orderId]);
+    result = await client.query(deleteOrder, [orderId]);
+    client.release()
+    res.send('Order Deleted!!!')
+  }catch(error){
+    console.error(error.stack)
   }
 });
 

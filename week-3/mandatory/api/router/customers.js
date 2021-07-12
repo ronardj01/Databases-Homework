@@ -49,7 +49,7 @@ router.post('/', async function (req, res) {
 });
 
 //Endpoints (PUT)
-//Update an existing custome
+//Update an existing customer
 router.put('/:customerID', async function (req, res) {
   const customerID = req.params.customerID;
   const { name, address, city, country } = req.body;
